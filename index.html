@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="image/pp.jpg">
+  <title>Dantzy Store </title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary1: #1dd1a1;
+      --primary2: #7b5cff;
+      --accent-grad: linear-gradient(90deg, var(--primary1), var(--primary2));
+      --muted: #9fb1c8;
+      --card-bg: rgba(255,255,255,0.03);
+    }
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(123,92,255,0.04), transparent),
+        radial-gradient(700px 350px at 90% 90%, rgba(29,209,161,0.03), transparent),
+        #071020;
+      color: #e6eef8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .btn-neon {
+      background: var(--accent-grad);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-neon:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(123,92,255,0.4);
+    }
+
+    /* Header */
+    .site-header { padding: 18px 0; }
+    .brand img { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; }
+    .brand .title { font-weight: 700; font-size: 18px; background: var(--accent-grad); -webkit-background-clip: text; color: transparent; }
+
+    /* Navigation */
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      margin: 0 20px;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .nav-link:hover {
+      color: #e6eef8;
+      background: rgba(255,255,255,0.1);
+    }
+    .nav-link.active {
+      color: var(--primary1);
+      background: rgba(29,209,161,0.1);
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--primary1);
+      border-radius: 50%;
+    }
+
+    /* Page Sections */
+    .page-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    .page-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero */
+    .hero { padding: 26px 0; }
+    .hero-card { background: linear-gradient(135deg, rgba(29,209,161,0.04), rgba(123,92,255,0.03)); border-radius: 12px; padding: 20px; }
+
+    /* Game card */
+    .game-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(123,92,255,0.2);
+    }
+    .game-card img {
+      height: 60%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform .4s ease, filter .3s ease;
+      filter: brightness(0.8) contrast(1.1);
+    }
+    .game-card:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) contrast(1.15);
+    }
+
+    .game-info {
+      height: 40%;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .game-info h6 {
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0;
+    }
+    .game-info small {
+      color: var(--muted);
+    }
+    .game-info .btn {
+      align-self: start;
+      margin-top: 10px;
+    }
+
+    /* Popular cards */
+    .popular-card {
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      transition: transform .2s ease;
+    }
+    .popular-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(123,92,255,0.15);
+    }
+
+    /* Contact Section */
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    .contact-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .contact-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: var(--primary1);
+    }
+
+    /* About Section */
+    .about-content {
+      background: rgba(255,255,255,0.02);
+      padding: 30px;
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+
+    @media (max-width:768px) {
+      .game-card { height: 280px; }
+      .game-card img { height: 55%; }
+      .contact-content { grid-template-columns: 1fr; }
+      .nav-menu { order: 2; width: 100%; justify-content: center; margin: 15px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="site-header d-flex align-items-center justify-content-between">
+      <div class="brand d-flex align-items-center gap-2">
+        <img src="./image/pp.jpg" alt="logo">
+        <div>
+          <div class="title">Dantzy Store</div>
+          <small style="color:var(--muted)">Top Up Game termurah dan terpercaya</small>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu d-none d-md-flex">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#produk" class="nav-link">Produk</a>
+        <a href="#kontak" class="nav-link">Kontak</a>
+      </nav>
+
+      <div class="d-flex gap-2 align-items-center">
+        <form class="d-none d-md-block me-2" onsubmit="event.preventDefault();filterGames();">
+          <div class="input-group">
+            <input id="searchInput" class="form-control bg-dark text-light" placeholder="Cari game..." />
+            <button type="button" class="btn btn-outline-light" onclick="filterGames()"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+        <button type="button" class="btn btn-sm btn-outline-light" onclick="openOrders()"><i class="bi bi-clock-history"></i> Orders</button>
+        <button type="button" class="btn btn-sm btn-neon" onclick="openAdmin()">Admin</button>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-menu d-flex d-md-none justify-content-center mb-3">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#produk" class="nav-link">Produk</a>
+      <a href="#kontak" class="nav-link">Kontak</a>
+    </nav>
+
+    <!-- MAIN CONTENT SECTIONS -->
+    <div class="main-sections">
+      <!-- HOME SECTION -->
+      <section id="home" class="page-section active">
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero-card d-flex gap-3 align-items-center">
+            <div style="flex:1">
+              <h2>Top Up Game Favoritmu — <span style="background:var(--accent-grad);-webkit-background-clip:text;color:transparent">Dantzy Store</span></h2>
+              <p style="color:var(--muted);margin:6px 0 12px">Dantzy store adalah Sahabat Para Gamers Dan Platform Top Up Game Termurah di Indonesia.Penuhi Kebutuhan Gaming Mu Bersama Dantzy Store Specialist Game Mobile Legends No.1 Murah , Aman , Terpercaya Dan Legal 100% (Open 24 Jam) .</p>
+              <div class="d-flex gap-2">
+                <button class="btn btn-neon btn-lg" onclick="showSection('produk')">Lihat Produk</button>
+                <a class="btn btn-outline-light btn-lg" href="#kontak" onclick="showSection('kontak')">Kontak</a>
+              </div>
+            </div>
+            <div style="width:420px" class="d-none d-lg-block">
+              <img src="./image/pp.jpg" style="width:100%;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.6)" alt="hero">
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about-content">
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Tentang Dantzy Store</h4>
+              <p style="color:var(--muted)">Kami adalah platform top up game terpercaya yang telah melayani ribuan gamers di seluruh Indonesia. Dengan pengalaman lebih dari 3 tahun di industri gaming, kami memahami kebutuhan para gamers untuk transaksi yang cepat, aman, dan terpercaya.</p>
+              <div class="d-flex gap-3 mt-4">
+                <div class="text-center">
+                  <div style="font-size:24px;color:var(--primary1)">10K+</div>
+                  <small style="color:var(--muted)">Pelanggan</small>
+                </div>
+                <div class="text-center">
+                  <div style="font-size:24px;color:var(--primary1)">50K+</div>
+                  <small style="color:var(--muted)">Transaksi</small>
+                </div>
+                <div class="text-center">
+                  <div style="font-size:24px;color:var(--primary1)">24/7</div>
+                  <small style="color:var(--muted)">Layanan</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h5>Keunggulan Kami</h5>
+              <ul style="color:var(--muted)">
+                <li>Proses instan dan otomatis</li>
+                <li>Harga termurah di pasaran</li>
+                <li>Support 24 jam nonstop</li>
+                <li>Garansi 100% aman</li>
+                <li>Berbagai metode pembayaran</li>
+                <li>Customer service responsif</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- POPULAR GAMES -->
+        <section class="mt-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Game Populer</h4>
+            <button class="btn btn-outline-light btn-sm" onclick="showSection('produk')">Lihat Semua</button>
+          </div>
+          <div class="row g-3" id="popularHomeGrid"></div>
+        </section>
+      </section>
+
+      <!-- PRODUK SECTION -->
+      <section id="produk" class="page-section">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="mb-0">Semua Game & Layanan</h4>
+          <small class="text-muted">Klik tombol untuk mulai top up</small>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="input-group">
+              <input id="searchInputProduk" class="form-control bg-dark text-light" placeholder="Cari game..." oninput="filterGames()" />
+              <button type="button" class="btn btn-outline-light"><i class="bi bi-search"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Grid -->
+        <div class="row g-3" id="gamesGrid">
+          <!-- akan diisi oleh JS -->
+        </div>
+
+        <!-- Category Filter -->
+        <div class="mt-4">
+          <h5>Kategori Game</h5>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn btn-outline-light btn-sm" onclick="filterByCategory('all')">Semua</button>
+            <button class="btn btn-outline-light btn-sm" onclick="filterByCategory('mobile')">Mobile</button>
+            <button class="btn btn-outline-light btn-sm" onclick="filterByCategory('pc')">PC</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- KONTAK SECTION -->
+      <section id="kontak" class="page-section">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h4>Hubungi Kami</h4>
+            <p style="color:var(--muted)">Butuh bantuan? Tim support kami siap membantu 24/7</p>
+          </div>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-card">
+              <div class="contact-icon">📍</div>
+              <h5>Alamat</h5>
+              <p style="color:var(--muted)">Jl. ketintang<br>surabaya selatan</p>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-icon">📞</div>
+              <h5>Telepon & WhatsApp</h5>
+              <p style="color:var(--muted)">087812430380<br>24/7 Customer Service</p>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-icon">✉️</div>
+              <h5>Email</h5>
+              <p style="color:var(--muted)">ibnuwafdan@gmail.com</p>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-icon">🕒</div>
+              <h5>Jam Operasional</h5>
+              <p style="color:var(--muted)">Senin - Minggu: 24/7</p>
+            </div>
+          </div>
+          
+          <div class="contact-form">
+            <div class="card p-4 bg-dark text-light">
+              <h5 class="mb-3">Kirim Pesan</h5>
+              <form id="contactForm" onsubmit="submitContact(event)">
+                <div class="mb-3">
+                  <label class="form-label">Nama Lengkap</label>
+                  <input id="cName" class="form-control bg-transparent text-light" placeholder="Masukkan nama" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Alamat Email</label>
+                  <input id="cEmail" class="form-control bg-transparent text-light" placeholder="email@example.com" type="email" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Subjek</label>
+                  <input id="cSubject" class="form-control bg-transparent text-light" placeholder="Subjek pesan" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Pesan</label>
+                  <textarea id="cMessage" class="form-control bg-transparent text-light" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-neon">Kirim Pesan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+       
+
+      <footer class="mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+          <div><strong>Dantzy Store</strong><div class="small">top up game termurah dan terpercaya</div></div>
+          <div class="small text-muted">Made for learning • Not for commercial use</div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- FLOATING CART -->
+  <div style="position:fixed;right:20px;bottom:20px;z-index:999">
+    <button class="btn btn-neon" onclick="openCart()"><i class="bi bi-cart3"></i>
+      <span id="cartCount" class="badge bg-danger" style="display:none;margin-left:8px">0</span>
+    </button>
+  </div>
+
+  <!-- MODALS (tetap sama seperti sebelumnya) -->
+  <!-- TOP-UP MODAL -->
+  <div class="modal fade" id="topupModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title">Top Up — <span id="modalGameTitle"></span></h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <img id="modalBanner" class="game-banner mb-3" src="" alt="game banner" style="width:100%;height:220px;object-fit:cover;border-radius:8px">
+              <p id="modalDesc" class="small text-muted mb-3"></p>
+
+              <form id="topupForm">
+                <div class="mb-2">
+                  <label class="form-label small text-muted">Player ID / UID</label>
+                  <input id="playerIdInput" class="form-control bg-transparent text-dark" placeholder="Masukkan Player ID">
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small text-muted">Server (opsional)</label>
+                  <input id="serverInput" class="form-control bg-transparent text-dark" placeholder="Server">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small text-muted">Pilih Paket</label>
+                  <div id="packagesContainer" class="d-flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small text-muted">Pilih Metode Pembayaran</label>
+                  <div id="paymentsContainer" class="d-flex flex-wrap gap-2"></div>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-6">
+              <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;">
+                <h6>Ringkasan Pesanan</h6>
+                <div class="small text-muted mb-2">Game: <strong id="summaryGame">-</strong></div>
+                <div class="small text-muted mb-2">Paket: <strong id="summaryPack">-</strong></div>
+                <div class="small text-muted mb-2">Harga: <strong id="summaryPrice">-</strong></div>
+                <div class="small text-muted mb-2">Player ID: <strong id="summaryId">-</strong></div>
+                <div class="small text-muted mb-2">Metode: <strong id="summaryMethod">-</strong></div>
+
+                <div id="topupApiMsg" class="mt-3"></div>
+                <div class="d-grid mt-3">
+                  <button id="payNowBtn" class="btn btn-neon">Bayar Sekarang</button>
+                </div>
+              </div>
+
+              <div class="small text-muted mt-3">Note: Ini demo — pembayaran disimulasikan, order disimpan di localStorage.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART MODAL -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Keranjang</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body"><div id="cartList"></div></div>
+        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button><button class="btn btn-primary" onclick="checkoutCart()">Checkout</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS MODAL -->
+  <div class="modal fade" id="ordersModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Riwayat Pesanan</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body"><div id="ordersList"></div></div>
+        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIN & PANEL -->
+  <div class="modal fade" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header"><h5 class="modal-title">Admin Login (Demo)</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <input id="adminPass" type="password" class="form-control" placeholder="Password admin (demo)">
+          <div class="mt-2"><button class="btn btn-primary" onclick="adminLogin()">Login</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="adminPanelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header"><h5 class="modal-title">Admin Panel</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body"><div id="adminOrdersList"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-3">
+        <div class="mb-2"><i class="bi bi-check-circle" style="font-size:48px;color:var(--primary2)"></i></div>
+        <div id="successMsg"></div>
+        <div class="mt-3"><button class="btn btn-primary" data-bs-dismiss="modal">Tutup</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ---------------- CONFIG ----------------
+    const API_BASE_URL = ''; // kosong = mock
+    const ADMIN_PASSWORD = 'dantzyadmin'; // demo only
+    const ORDERS_KEY = 'dantzy_orders_v1';
+    const CART_KEY = 'dantzy_cart_v1';
+
+    // payment methods (simple list)
+    const payments = [
+      {id:'bca', name:'BCA'}, {id:'bni', name:'BNI'}, {id:'bri', name:'BRI'},
+      {id:'mandiri', name:'Mandiri'}, {id:'dana', name:'DANA'}, {id:'gopay', name:'GoPay'},
+      {id:'ovo', name:'OVO'}, {id:'qris', name:'QRIS'}
+    ];
+
+    // games (same images used earlier)
+    const games = [
+      {id:'mlbb', name:'Mobile Legends', pub:'Moonton', img:'./image/ML.jpg', desc:'Diamond Mobile Legends • Instan', category:'mobile', packages:[
+        {id:'ml_86', name:'86 Diamonds', price:12000}, {id:'ml_170', name:'170 Diamonds', price:24000}, {id:'ml_514', name:'514 Diamonds', price:70000}
+      ]},
+      {id:'ff', name:'Free Fire', pub:'Garena', img:'./image/ff.jpg', desc:'Diamond Free Fire • Instan', category:'mobile', packages:[
+        {id:'ff_70', name:'70 Diamonds', price:15000}, {id:'ff_355', name:'355 Diamonds', price:68000}
+      ]},
+      {id:'pubg', name:'PUBG Mobile', pub:'Tencent', img:'./image/pubg.jpg', desc:'UC PUBG Mobile • Resmi', category:'mobile', packages:[
+        {id:'p_60', name:'60 UC', price:12000}, {id:'p_300', name:'300 UC', price:52000}
+      ]},
+      {id:'valorant', name:'Valorant', pub:'Riot Games', img:'./image/valorant.jpg', desc:'VP Valorant • Resmi', category:'pc', packages:[
+        {id:'val_125', name:'125 VP', price:20000}, {id:'val_420', name:'420 VP', price:60000}
+      ]},
+      {id:'genshin', name:'Genshin Impact', pub:'miHoYo', img:'./image/gensin.jpg', desc:'Genesis Crystal • Resmi', category:'pc', packages:[
+        {id:'g_60', name:'60 Crystal', price:20000}, {id:'g_300', name:'300 Crystal', price:90000}
+      ]},
+      {id:'codm', name:'Call of Duty Mobile', pub:'Activision', img:'./image/codm.jpg', desc:'CP CODM • Resmi', category:'mobile', packages:[
+        {id:'c_31', name:'31 CP', price:10000}, {id:'c_280', name:'280 CP', price:65000}
+      ]}
+    ];
+
+    // ---------------- HELPERS ----------------
+    const $ = sel => document.querySelector(sel);
+    const $all = sel => Array.from(document.querySelectorAll(sel));
+
+    function formatRupiah(n){ return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+    function safeParse(str, fallback){ try{ return JSON.parse(str||'null') || fallback; } catch(e){ return fallback; } }
+
+    // ---------------- NAVIGATION ----------------
+    function showSection(sectionId) {
+      // Hide all sections
+      $all('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show target section
+      $(`#${sectionId}`).classList.add('active');
+      
+      // Update active nav link
+      $all('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      $(`a[href="#${sectionId}"]`).classList.add('active');
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Setup navigation
+    $all('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        showSection(targetId);
+      });
+    });
+
+    // ---------------- RENDER ----------------
+    function renderGameGrid(){
+      const grid = $('#gamesGrid'); 
+      const popHome = $('#popularHomeGrid');
+      
+      if(!grid) return;
+      grid.innerHTML = ''; 
+      if(popHome) popHome.innerHTML = '';
+
+      // Render all games in produk section
+      games.forEach(g=>{
+        const col = document.createElement('div'); 
+        col.className = 'col-12 col-md-6 col-lg-4';
+        col.innerHTML = `
+          <div class="game-card" role="group" aria-label="${g.name}">
+            <img src="${g.img}" alt="${g.name}" loading="lazy">
+            <div class="game-info">
+              <div>
+                <h6>${g.name}</h6>
+                <small>${g.pub}</small>
+              </div>
+              <div>
+                <button class="btn btn-neon" onclick="openTopupModal('${g.id}')">Top Up Sekarang</button>
+                <button class="btn btn-sm btn-outline-light ms-2" onclick="addToCart('${g.id}','${g.packages[0].id}')">+ Keranjang</button>
+              </div>
+            </div>
+          </div>`;
+        grid.appendChild(col);
+      });
+
+      // Render popular games in home section (first 4 games)
+      if(popHome){
+        games.slice(0, 4).forEach(g=>{
+          const pcol = document.createElement('div'); 
+          pcol.className='col-6 col-md-3';
+          const pkg = g.packages && g.packages[0] ? g.packages[0] : null;
+          pcol.innerHTML = `
+            <div class="popular-card p-2">
+              <img src="${g.img}" alt="${g.name}" style="height:120px;object-fit:cover;border-radius:8px;width:100%" loading="lazy">
+              <div style="padding:8px">
+                <div class="fw-semibold">${pkg?pkg.name:'-'} — ${g.name}</div>
+                <div class="text-success">${pkg?formatRupiah(pkg.price):'-'}</div>
+                <button class="btn btn-sm btn-outline-light mt-2" ${pkg?`onclick="addToCart('${g.id}','${pkg.id}')"`:'disabled'}>Tambah ke Keranjang</button>
+              </div>
+            </div>`;
+          popHome.appendChild(pcol);
+        });
+      }
+    }
+
+    // ---------------- FILTERING ----------------
+    function filterGames(){
+      const searchInput = $('#searchInput') || $('#searchInputProduk');
+      const q = searchInput ? searchInput.value.toLowerCase() : '';
+      
+      $all('#gamesGrid .col-12').forEach(col=>{
+        const txt = (col.innerText||'').toLowerCase();
+        col.style.display = txt.includes(q) ? '' : 'none';
+      });
+    }
+
+    function filterByCategory(category){
+      $all('#gamesGrid .col-12').forEach((col, index)=>{
+        if(category === 'all') {
+          col.style.display = '';
+        } else {
+          const game = games[index];
+          if(game && game.category === category) {
+            col.style.display = '';
+          } else {
+            col.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // ---------------- CART ----------------
+    function loadCart(){ return safeParse(localStorage.getItem(CART_KEY), []); }
+    function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart||[])); renderCartCount(); }
+    function renderCartCount(){ const c = loadCart().reduce((s,i)=>s+(i.qty||0),0); const el = $('#cartCount'); if(el){ if(c>0){ el.style.display='inline-block'; el.innerText = c; } else el.style.display='none'; } }
+
+    function addToCart(gameId, pkgId){
+      const game = games.find(x=>x.id===gameId); if(!game) return alert('Game tidak ditemukan');
+      const pkg = (game.packages||[]).find(p=>p.id===pkgId); if(!pkg) return alert('Paket tidak ditemukan');
+      const cart = loadCart();
+      const key = gameId + '|' + pkgId;
+      const ex = cart.find(i=>i.key===key);
+      if(ex) ex.qty = (ex.qty||0) + 1; else cart.push({ key, gameId, pkgId, gameName: game.name, pkgName: pkg.name, price: pkg.price, qty: 1 });
+      saveCart(cart); alert('Berhasil ditambahkan ke keranjang');
+    }
+
+    function openCart(){
+      const modalEl = $('#cartModal'); const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      const list = $('#cartList'); const cart = loadCart();
+      if(!list) return;
+      if(cart.length === 0){ list.innerHTML = '<div class="text-center small text-muted">Keranjang kosong</div>'; }
+      else {
+        list.innerHTML = '';
+        cart.forEach((it, idx)=>{
+          const row = document.createElement('div'); row.className = 'd-flex justify-content-between align-items-center py-2 border-bottom';
+          row.innerHTML = `<div><strong>${it.pkgName}</strong><div class="small text-muted">${it.gameName}</div></div>
+            <div class="text-end"><div class="small">${formatRupiah(it.price)} x ${it.qty}</div>
+            <div class="mt-2">
+              <button class="btn btn-sm btn-outline-light me-1" onclick="changeQty(${idx},-1)">-</button>
+              <button class="btn btn-sm btn-outline-light me-1" onclick="changeQty(${idx},1)">+</button>
+              <button class="btn btn-sm btn-danger" onclick="removeCart(${idx})">Hapus</button>
+            </div></div>`;
+          list.appendChild(row);
+        });
+      }
+      modal.show();
+    }
+
+    function changeQty(idx, delta){
+      const cart = loadCart();
+      if(!cart[idx]) return;
+      cart[idx].qty = (cart[idx].qty||0) + delta;
+      if(cart[idx].qty <= 0) cart.splice(idx,1);
+      saveCart(cart); openCart();
+    }
+    function removeCart(idx){ const cart = loadCart(); if(!cart[idx]) return; cart.splice(idx,1); saveCart(cart); openCart(); }
+
+    function checkoutCart(){
+      const cart = loadCart();
+      if(cart.length === 0) return alert('Keranjang kosong');
+      const first = cart[0];
+      openTopupModal(first.gameId);
+      setTimeout(()=> {
+        $all('#packagesContainer .package-btn').forEach(b=>{
+          if(b.innerText && first.pkgName && b.innerText.includes(first.pkgName)) b.click();
+        });
+      },300);
+      const cm = bootstrap.Modal.getInstance($('#cartModal')); if(cm) cm.hide();
+    }
+
+    // ---------------- ORDERS ----------------
+    function loadOrders(){ return safeParse(localStorage.getItem(ORDERS_KEY), []); }
+    function saveOrder(order){ const orders = loadOrders(); orders.unshift(order); localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); }
+
+    function openOrders(){
+      const modalEl = $('#ordersModal'); const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      const list = $('#ordersList'); const orders = loadOrders();
+      if(!list) return;
+      if(orders.length === 0){ list.innerHTML = '<div class="text-center small text-muted">Belum ada pesanan</div>'; }
+      else {
+        list.innerHTML = '';
+        orders.forEach(o=>{
+          const el = document.createElement('div'); el.className = 'p-2 border-bottom';
+          el.innerHTML = `<div class="d-flex justify-content-between"><div><strong>${o.order_id}</strong><div class="small text-muted">${o.gameName} — ${o.package?.name || '-'} | ID: ${o.playerId || '-'}</div></div><div><div class="small">${formatRupiah(o.price||0)}</div><div class="small text-muted">${o.created_at ? (new Date(o.created_at)).toLocaleString() : '-'}</div></div></div>`;
+          list.appendChild(el);
+        });
+      }
+      modal.show();
+    }
+
+    // ---------------- TOPUP FLOW ----------------
+    let currentGame = null;
+    let selectedPackage = null;
+    let selectedPayment = null;
+
+    function openTopupModal(gameId){
+      currentGame = games.find(g=>g.id === gameId) || null;
+      if(!currentGame) return alert('Game tidak ditemukan');
+      const modalEl = $('#topupModal'); const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+      $('#modalGameTitle').innerText = currentGame.name;
+      $('#modalBanner').src = currentGame.img || '';
+      $('#modalDesc').innerText = currentGame.desc || '';
+      $('#summaryGame').innerText = currentGame.name;
+      $('#packagesContainer').innerHTML = '';
+      $('#paymentsContainer').innerHTML = '';
+      $('#playerIdInput').value = '';
+      $('#serverInput').value = '';
+      $('#summaryPack').innerText = '-'; $('#summaryPrice').innerText = '-'; $('#summaryId').innerText = '-'; $('#summaryMethod').innerText = '-';
+      selectedPackage = null; selectedPayment = null; $('#topupApiMsg').innerHTML = '';
+
+      (currentGame.packages || []).forEach(p=>{
+        const b = document.createElement('button');
+        b.className = 'package-btn btn btn-outline-light me-2 mb-2';
+        b.type = 'button';
+        b.innerText = `${p.name} — ${formatRupiah(p.price)}`;
+        b.onclick = ()=>{
+          $all('#packagesContainer .package-btn').forEach(x=>x.classList.remove('active'));
+          b.classList.add('active');
+          selectedPackage = p;
+          $('#summaryPack').innerText = p.name;
+          $('#summaryPrice').innerText = formatRupiah(p.price);
+        };
+        $('#packagesContainer').appendChild(b);
+      });
+
+      (payments || []).forEach(pm=>{
+        const el = document.createElement('button');
+        el.className = 'pay-item btn btn-outline-light me-2 mb-2';
+        el.dataset.id = pm.id;
+        el.tabIndex = 0;
+        el.innerText = pm.name;
+        el.onclick = ()=>{
+          $all('#paymentsContainer .pay-item').forEach(x=>x.classList.remove('active'));
+          el.classList.add('active');
+          selectedPayment = pm;
+          $('#summaryMethod').innerText = pm.name;
+        };
+        $('#paymentsContainer').appendChild(el);
+      });
+
+      modal.show();
+    }
+
+    // update summary player id live
+    const playerEl = $('#playerIdInput');
+    if(playerEl) playerEl.addEventListener('input', ()=> { $('#summaryId').innerText = playerEl.value || '-'; });
+
+    async function callTopupApi(payload){
+      if(API_BASE_URL){
+        const res = await fetch(API_BASE_URL + '/topup', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        if(!res.ok) throw new Error('API ' + res.status);
+        return res.json();
+      } else {
+        return new Promise(resolve => setTimeout(()=> resolve({ order_id: 'DNZ-' + Math.random().toString(36).slice(2,9).toUpperCase(), va: Math.floor(1000000000 + Math.random()*8999999999) }), 900));
+      }
+    }
+
+    $('#payNowBtn').addEventListener && $('#payNowBtn').addEventListener('click', async (e)=>{
+      e.preventDefault && e.preventDefault();
+      const playerId = ($('#playerIdInput') && $('#playerIdInput').value) ? $('#playerIdInput').value.trim() : '';
+      if(!playerId) return alert('Masukkan Player ID');
+      if(!selectedPackage) return alert('Pilih paket');
+      if(!selectedPayment) return alert('Pilih metode pembayaran');
+
+      if($('#topupApiMsg')) $('#topupApiMsg').innerHTML = '<div class="small text-muted">Memproses pesanan...</div>';
+      try{
+        const payload = { game: currentGame.id, gameName: currentGame.name, playerId, server: ($('#serverInput')&&$('#serverInput').value)?$('#serverInput').value:'', package: selectedPackage, method: selectedPayment.id, price: selectedPackage.price, created_at: new Date().toISOString() };
+        const resp = await callTopupApi(payload);
+        const order = { order_id: resp.order_id || ('DNZ-'+Math.random().toString(36).slice(2,9).toUpperCase()), ...payload, va: resp.va || null, status: 'PENDING' };
+        saveOrder(order);
+        if($('#topupApiMsg')) $('#topupApiMsg').innerHTML = `<div class="small text-success">Pesanan dibuat. Order ID: <strong>${order.order_id}</strong></div>`;
+
+        // hide modal then show success
+        const topupModalInstance = bootstrap.Modal.getInstance($('#topupModal'));
+        if(topupModalInstance) topupModalInstance.hide();
+        if($('#successMsg')) $('#successMsg').innerHTML = `<div class="small">Pesanan dibuat.<br>Order ID: <strong>${order.order_id}</strong><br>Metode: <strong>${selectedPayment.name}</strong>${order.va?('<br>VA: <strong>'+order.va+'</strong>'):''}</div>`;
+        bootstrap.Modal.getOrCreateInstance($('#successModal')).show();
+
+        updateCartAfterOrder(order);
+      }catch(err){
+        if($('#topupApiMsg')) $('#topupApiMsg').innerHTML = `<div class="small text-danger">Gagal: ${err.message}</div>`;
+      }
+    });
+
+    function updateCartAfterOrder(order){
+      try{
+        const cart = loadCart();
+        const pkgId = order.package?.id || order.package;
+        const remain = cart.filter(i => !(i.gameId === order.game && i.pkgId === pkgId));
+        saveCart(remain);
+      }catch(e){ console.warn('updateCartAfterOrder err', e); }
+    }
+
+    // ---------------- CONTACT ----------------
+    function submitContact(e){
+      e.preventDefault();
+      const name = $('#cName').value.trim(); 
+      const email = $('#cEmail').value.trim(); 
+      const subject = $('#cSubject').value.trim();
+      const msg = $('#cMessage').value.trim();
+      
+      if(!name||!email||!subject||!msg) return alert('Lengkapi form');
+      alert('Pesan terkirim (simulasi). Terima kasih, ' + name);
+      $('#cName').value=''; $('#cEmail').value=''; $('#cSubject').value=''; $('#cMessage').value='';
+    }
+
+    // ---------------- ADMIN ----------------
+    function openAdmin(){ bootstrap.Modal.getOrCreateInstance($('#adminLoginModal')).show(); }
+    function adminLogin(){
+      const pass = ($('#adminPass') && $('#adminPass').value) ? $('#adminPass').value : '';
+      if(pass === ADMIN_PASSWORD){
+        const lm = bootstrap.Modal.getInstance($('#adminLoginModal')); if(lm) lm.hide();
+        renderAdminPanel();
+        bootstrap.Modal.getOrCreateInstance($('#adminPanelModal')).show();
+      } else alert('Password salah (demo)');
+    }
+
+    function renderAdminPanel(){
+      const el = $('#adminOrdersList'); const orders = loadOrders();
+      if(!el) return;
+      if(orders.length===0){ el.innerHTML = '<div class="small text-muted">Tidak ada pesanan</div>'; return; }
+      el.innerHTML = '';
+      orders.forEach((o, idx)=>{
+        const row = document.createElement('div'); row.className = 'border p-2 mb-2';
+        row.innerHTML = `<div class="d-flex justify-content-between"><div><strong>${o.order_id}</strong><div class="small text-muted">${o.gameName} — ${o.package?.name || '-'} | ID: ${o.playerId || '-'}</div></div>
+          <div><button class="btn btn-sm btn-success me-1" onclick="adminSetPaid(${idx})">Set Lunas</button><button class="btn btn-sm btn-danger" onclick="adminDelete(${idx})">Hapus</button></div></div>
+          <div class="mt-2 small text-muted">Status: ${o.status}</div>`;
+        el.appendChild(row);
+      });
+    }
+    function adminSetPaid(idx){ const orders = loadOrders(); if(!orders[idx]) return; orders[idx].status = 'SUCCESS'; localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); renderAdminPanel(); alert('Status diupdate'); }
+    function adminDelete(idx){ const orders = loadOrders(); if(!orders[idx]) return; orders.splice(idx,1); localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); renderAdminPanel(); alert('Pesanan dihapus'); }
+
+    // ---------------- INIT ----------------
+    (function seedDemo(){
+      if(!localStorage.getItem(ORDERS_KEY)){
+        const demo = [{ order_id:'DNZ-DEMO1', game:'mlbb', gameName:'Mobile Legends', package:{id:'ml_86',name:'86 Diamonds'}, playerId:'123456', price:12000, method:'bca', created_at:new Date().toISOString(), status:'SUCCESS' }];
+        localStorage.setItem(ORDERS_KEY, JSON.stringify(demo));
+      }
+    })();
+
+    // first render
+    renderGameGrid();
+    renderCartCount();
+  </script>
+</body>
+</html>
