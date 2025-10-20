@@ -68,8 +68,8 @@ Dantzy Store adalah platform top up game mobile dan PC yang menawarkan pengalama
 
 ## Link Video YouTube
 
-[[Video Presentasi Proyek](https://youtu.be/... "Klik untuk menonton video presentasi")  
-*(Upload video ke YouTube dan ganti link di sini)*](https://youtu.be/Ru5NYij96Zw)
+[Video Presentasi Proyek](https://youtu.be/... "Klik untuk menonton video presentasi")  
+(https://youtu.be/Ru5NYij96Zw)
 
 ---
 
